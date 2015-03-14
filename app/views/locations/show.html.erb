@@ -1,10 +1,39 @@
-<div class="container">
-
-<p>
-  <strong>Name:</strong>
-  <%= @location.name %>
-</p>
-
-<%= link_to 'Edit', edit_location_path(@location) %> |
-<%= link_to 'Back', locations_path %>
+<% title "#{@location.name}" %>
+<div class="top-section">
+  <div class="container">
+    <h1><%= @location.name %></h1>
+    <p class="sub-head">Explore great items in <%= @location.name %>.</p>
+  </div>
 </div>
+
+<div class="container no-left-right-pad">
+<section id="pin-grid" class="test">
+<% @listings.each do |listing| %>
+  <div class="white-panel">
+            <%= link_to image_tag(listing.images.first.photo.url), listing %>
+            
+        <div class="caption">
+        <%= link_to "#{listing.name.truncate(30)}", listing %><br>
+        <p><%= listing.user.username %> <span class="listing-price"><%= "RM #{number_with_precision(listing.price, precision: 2)}" %></span></p>
+          <!--
+          <%= link_to 'Show', listing %>
+          <%= link_to 'Edit', edit_listing_path(listing) %>
+          <%= link_to 'Destroy', listing, method: :delete, data: { confirm: 'Are you sure?' } %>
+          -->
+        </div>
+    </div>
+<% end %>
+</section>
+</div>
+
+<script>
+$(document).ready(function() {
+$('#pin-grid').pinterest_grid({
+no_columns: 4,
+padding_x: 30,
+padding_y: 30,
+margin_bottom: 50,
+single_column_breakpoint: 700
+});
+});
+</script>

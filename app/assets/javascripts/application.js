@@ -12,7 +12,10 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require tinymce-jquery
+//= require jquery.flexslider
 //= require jquery.turbolinks
+//= require cocoon
 //= require bootstrap-sprockets
 //= require turbolinks
 //= require_tree .

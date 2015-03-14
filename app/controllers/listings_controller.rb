@@ -4,13 +4,16 @@ class ListingsController < ApplicationController
   # GET /listings
   # GET /listings.json
   def index
-    @listings = Listing.all.order('created_at DESC').includes(:user)
-    #@images = Image.all
+    @listings = Listing.all.order('created_at DESC').includes(:user, :images)
+    @images = Image.all
   end
 
   # GET /listings/1
   # GET /listings/1.json
   def show
+    @images = Image.where(listing_id: @listing)
+    @listings = Listing.where(user_id: @listing.user_id)
+    @related = @listings.where.not(id: @listing ).includes(:user, :images).limit(5)
     set_view_count
   end
 
@@ -18,6 +21,8 @@ class ListingsController < ApplicationController
   def new
     @listing = Listing.new
     @subcategories = Subcategory.all
+
+    @listing.images.build
   end
 
   # GET /listings/1/edit
@@ -90,6 +95,6 @@ class ListingsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def listing_params
-      params.require(:listing).permit(:name, :description, :price, :processing_time, :view_count, :status, :slug, :user_id, :category_id, :subcategory_id, :location_id)
+      params.require(:listing).permit(:name, :description, :price, :processing_time, :view_count, :status, :slug, :user_id, :category_id, :subcategory_id, :location_id, images_attributes: [:id, :listing_id, :photo, :_destroy])
     end
 end

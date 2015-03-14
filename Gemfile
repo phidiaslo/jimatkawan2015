@@ -17,6 +17,10 @@ gem 'meta-tags'
 gem 'ransack'
 gem 'simple_form'
 gem 'country_select', git: 'https://github.com/phidiaslo/country_select.git'
+gem 'tinymce-rails'
+gem "paperclip", "~> 4.2"
+gem "cocoon"
+gem 'flexslider'
 
 gem 'coffee-script-source', '1.8.0'
 

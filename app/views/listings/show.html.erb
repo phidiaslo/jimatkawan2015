@@ -1,56 +1,64 @@
+<% title @listing.name %>
+<% description @listing.description.split.slice(0, 40).join(" ").html_safe %>
+
 <div class="container">
+<div class="listing-wrapper">
+  <div class="row">
+    <div class="col-md-7">
+      <div class="flexslider">
+        <ul class="slides">
+          <% @images.each do |image| %>
+            <li><%= image_tag image.photo.url(:medium) %></li>
+          <% end %>                 
+        </ul>
+      </div>
+      <%= render 'listings/tabs' %>
+    </div>
+    <div class="col-md-5">
+      <div class="listing-details">
+        
+      </div>
+      <div class="social-sharing">
+        <div class="social-box">
 
-<p>
-  <strong>Name:</strong>
-  <%= @listing.name %>
-</p>
-
-<p>
-  <strong>Description:</strong>
-  <%= @listing.description %>
-</p>
-
-<p>
-  <strong>Price:</strong>
-  <%= @listing.price %>
-</p>
-
-<p>
-  <strong>Processing time:</strong>
-  <%= @listing.processing_time %>
-</p>
-
-<p>
-  <strong>View count:</strong>
-  <%= @listing.view_count %>
-</p>
-
-<p>
-  <strong>Status:</strong>
-  <%= @listing.status %>
-</p>
-
-<p>
-  <strong>Slug:</strong>
-  <%= @listing.slug %>
-</p>
-
-<p>
-  <strong>User:</strong>
-  <%= @listing.user %>
-</p>
-
-<p>
-  <strong>Subcategory:</strong>
-  <%= @listing.subcategory %>
-</p>
-
-<p>
-  <strong>Location:</strong>
-  <%= @listing.location %>
-</p>
-
-<%= link_to 'Edit', edit_listing_path(@listing) %> |
-<%= link_to 'Back', listings_path %>
-
+           <center><h5><b><%= @listing.user.username %></b></h5>
+           <small><p><i>in Sabah, <%= @listing.user.country %></i></p></small></center>
+           <p><%= @listing.user.about %></p>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+</div>
+
+<div class="container">
+<br>
+<section id="pin-grid-show" class="test">
+  <% @related.each do |listing| %>
+    <div class="white-panel">
+      <%= link_to image_tag(listing.images.first.photo.url), listing %>
+                   
+      <div class="caption">
+        <%= link_to "#{listing.name.truncate(30)}", listing %><br>
+        <p><%= listing.user.username %> <span class="listing-price"><%= "RM #{number_with_precision(listing.price, precision: 2)}" %></span></p>
+      </div>
+    </div>
+  <% end %>
+</section>
+<%= link_to 'Edit', edit_listing_path(@listing) %> | <%= link_to 'Back', listings_path %>
+</div>
+
+<script>
+  $(document).ready(function() {
+    $('#pin-grid-show').pinterest_grid({
+      no_columns: 5,
+      padding_x: 20,
+      padding_y: 20,
+      margin_bottom: 30,
+      single_column_breakpoint: 700
+    });
+  });
+  $(document).ready(function () {
+    $('.flexslider').flexslider();
+  });
+</script>
