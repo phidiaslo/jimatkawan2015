@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150312031346) do
+ActiveRecord::Schema.define(version: 20150327151937) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "name"
@@ -65,6 +65,38 @@ ActiveRecord::Schema.define(version: 20150312031346) do
 
   add_index "locations", ["slug"], name: "index_locations_on_slug", unique: true
 
+  create_table "shiplocations", force: :cascade do |t|
+    t.string   "country"
+    t.decimal  "price",      precision: 10, scale: 2
+    t.decimal  "cost",       precision: 10, scale: 2
+    t.integer  "listing_id"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+  end
+
+  add_index "shiplocations", ["listing_id"], name: "index_shiplocations_on_listing_id"
+
+  create_table "shops", force: :cascade do |t|
+    t.string   "name"
+    t.string   "subdomain"
+    t.integer  "user_id"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.string   "slug"
+    t.string   "cover_file_name"
+    t.string   "cover_content_type"
+    t.integer  "cover_file_size"
+    t.datetime "cover_updated_at"
+    t.string   "title"
+    t.text     "announcement"
+    t.text     "welcome_message"
+    t.text     "shipping_policy"
+    t.text     "refund_policy"
+  end
+
+  add_index "shops", ["slug"], name: "index_shops_on_slug", unique: true
+  add_index "shops", ["user_id"], name: "index_shops_on_user_id", unique: true
+
   create_table "subcategories", force: :cascade do |t|
     t.string   "name"
     t.integer  "category_id"
@@ -101,6 +133,10 @@ ActiveRecord::Schema.define(version: 20150312031346) do
     t.string   "username"
     t.string   "role",                   default: "Member"
     t.string   "country"
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

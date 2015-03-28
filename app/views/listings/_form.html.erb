@@ -57,11 +57,15 @@
 
   <div class="listing-wrapper">
     <label>Photos</label> <small>A picture speaks a thousand words. Clear, stunning photos are recommended.</small>
-    <%= f.fields_for :images do |builder| %>
-      <%= render 'image_fields', f: builder %> 
-    <% end %>
-    <div class="links">
-      <%= link_to_add_association 'Add More Image', f, :images %>
+    <div class="form-group">
+      <div class="row">
+        <%= f.fields_for :images do |builder| %>
+          <%= render 'image_fields', f: builder %> 
+        <% end %>
+        <div class="links">
+          <%= link_to_add_association 'Add More Image', f, :images, class: "btn btn-link" %>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -72,9 +76,31 @@
     </div>
 
     <div class="form-group">
-      <label>Ships From</label>
+      <label>Ships From</label> <small>What is your items' current location?</small>
       <%= f.association :location, label: false, prompt: "I'm shipping this item from...", input_html: {class: "form-control input-sm"} %>
     </div>
+
+    <div class="form-group">
+
+    <div class="row">
+      <div class="col-md-5">
+        <label>Ships To</label>
+      </div>
+      <div class="col-md-5">
+        <label>Cost(RM)</label>
+      </div>
+      <div class="col-md-2">
+      </div>
+    </div>
+    <%= f.fields_for :shiplocations do |builder| %>
+      <%= render 'shiplocation_fields', f: builder %>
+    <% end %>
+
+   
+    <div class="links">
+      <%= link_to_add_association 'Add More Location', f, :shiplocations, class: "btn-link" %>
+    </div>
+  </div>
   </div>
 
   <div class="form-group">
@@ -83,3 +109,5 @@
 <% end %>
 
 <%= tinymce %>
+
+

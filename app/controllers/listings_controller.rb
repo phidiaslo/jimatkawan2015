@@ -4,7 +4,7 @@ class ListingsController < ApplicationController
   # GET /listings
   # GET /listings.json
   def index
-    @listings = Listing.all.order('created_at DESC').includes(:user, :images)
+    @listings = Listing.all.includes(:user, :images).order('view_count DESC').page(params[:page]).per(4)
     @images = Image.all
   end
 
@@ -14,6 +14,8 @@ class ListingsController < ApplicationController
     @images = Image.where(listing_id: @listing)
     @listings = Listing.where(user_id: @listing.user_id)
     @related = @listings.where.not(id: @listing ).includes(:user, :images).limit(5)
+    @shiplocations = Shiplocation.where(listing_id: @listing)
+
     set_view_count
   end
 
@@ -22,7 +24,10 @@ class ListingsController < ApplicationController
     @listing = Listing.new
     @subcategories = Subcategory.all
 
+    3.times do
     @listing.images.build
+    end
+    @listing.shiplocations.build
   end
 
   # GET /listings/1/edit
@@ -86,6 +91,11 @@ class ListingsController < ApplicationController
     end
   end
 
+  def search
+    @listings = @search.result.includes(:user).to_a.uniq
+    @images = Image.all
+  end
+
   private
 
     # Use callbacks to share common setup or constraints between actions.
@@ -95,6 +105,6 @@ class ListingsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def listing_params
-      params.require(:listing).permit(:name, :description, :price, :processing_time, :view_count, :status, :slug, :user_id, :category_id, :subcategory_id, :location_id, images_attributes: [:id, :listing_id, :photo, :_destroy])
+      params.require(:listing).permit(:name, :description, :price, :processing_time, :view_count, :status, :slug, :user_id, :category_id, :subcategory_id, :location_id, images_attributes: [:id, :photo, :_destroy], shiplocations_attributes: [:id, :country, :price, :cost, :_destroy])
     end
 end

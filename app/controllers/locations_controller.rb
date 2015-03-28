@@ -11,8 +11,7 @@ class LocationsController < ApplicationController
   # GET /locations/1.json
   def show
     @images = Image.all
-    @listings = Listing.where(location_id: @location).includes(:user).order('created_at DESC')
-    fresh_when @location
+    @listings = Listing.where(location_id: @location).includes(:user).order('created_at DESC').page(params[:page]).per(4)
   end
 
   # GET /locations/new

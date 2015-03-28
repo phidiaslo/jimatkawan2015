@@ -1,0 +1,90 @@
+<% title @shop.name %>
+
+<div class="container">
+  <div class="row margin-top-25">
+    <div class="col-md-2">
+      <div class="shop-sidebar center">
+        <p><%= image_tag @shop.user.avatar.url(:profile), class: "img-circle margin-bottom-10" %></p>
+        <p><b><%= @shop.user.username %></b></p>
+        <p class="margin-bottom-10"><small>Currently in <%= @shop.user.country %></small></p>
+        <p class="margin-bottom-5"><b>Have a question?</b></p>
+        <p><%= mail_to @shop.user.email, "Contact Shop Owner", class: "btn btn-xs btn-primary" %></p>
+      </div>
+
+      <div class="shop-sidebar">
+        <p><b>Shop Info</b></p>
+        <hr class="small-hr">
+        <p><b><%= @shop.name %></b></p>
+        <p class="margin-bottom-10"><small>Opened <%= @shop.created_at.strftime("%b %e, %Y") %></p>
+        <p><%= link_to "About", shop_about_path(@shop) %></p>
+        <p><%= link_to "Policies", shop_policy_path(@shop) %></p>
+        <p><%= link_to "Reviews", shop_reviews_path(@shop) %></p>
+        <hr class="small-hr">
+        <p class="margin-bottom-5"><%= link_to 'Edit Shop Info', edit_shop_path(@shop), class: "btn btn-xs btn-success full-width" %></p>
+        <p><%= link_to 'Add New Item', new_listing_path, class: "btn btn-xs btn-success full-width" %></p>
+      </div>
+    </div>
+    <div class="col-md-10">
+
+        <% if @shop.cover.present? %>
+	      <div class="cover-photo">
+	        <%= image_tag @shop.cover.url %>
+	      </div>
+        <% end %>
+      <table class="table table-striped shop-top-section">
+        <tbody>
+          <tr>
+            <td><b><%= @shop.name %></b><p><small>Happy New Year 2015</small></p></td>
+            <td></td>
+            <td></td>
+          </tr> 
+          <tr>
+            <td colspan="3"><p><small>Etiam ut purus mattis mauris sodales aliquam. Praesent egestas tristique nibh. Phasellus dolor. In ac felis quis tortor malesuada pretium. Ut tincidunt tincidunt erat.</small></p></td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <%= search_form_for @shopsearch, url: store_path(@shop) do |f| %>
+                <div class="form-inline width-60">
+                   <%= f.text_field :name_cont, placeholder: 'Search in this shop', class: "form-control input-sm" %>
+                   <%= f.submit "Search", class: "btn btn-sm btn-primary green-border" %>
+                </div>
+              <% end %>
+            </td>
+            <td class="middle-right">
+              <p>Sort by <%= sort_link(@shopsearch, :created_at, "Recent", default_order: :desc) %> | <%= sort_link(@shopsearch, :view_count, "Views") %> | <%= sort_link(@shopsearch, :price, "Price") %></p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <section id="pin-grid-shop" class="test">
+      <% @listings.each do |listing| %>
+        <div class="white-panel">         
+          <%= link_to image_tag(listing.images.first.photo.url), listing %>
+            <div class="caption">
+              <%= link_to "#{listing.name.truncate(26)}", listing %><br>
+              <p>
+                <%= listing.user.username %> <span class="listing-price"><%= "RM #{number_with_precision(listing.price, precision: 2)}" %></span>
+              </p>
+              <%= link_to 'Edit', edit_listing_path(listing) %>
+              <%= link_to 'Destroy', listing, method: :delete, data: { confirm: 'Are you sure?' } %>
+            </div>
+        </div>
+      <% end %> 
+      </section>
+      <center><%= paginate @listings %></center>
+    </div>
+  </div>
+</div>
+
+<script>
+$(document).ready(function() {
+$('#pin-grid-shop').pinterest_grid({
+no_columns: 4,
+padding_x: 20,
+padding_y: 20,
+margin_bottom: 50,
+single_column_breakpoint: 700
+});
+});
+</script>
+

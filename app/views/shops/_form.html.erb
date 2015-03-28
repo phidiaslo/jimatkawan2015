@@ -1,0 +1,35 @@
+<%= simple_form_for(@shop, :html => { :multipart => true }) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-group">
+    <%= f.input :cover, required: true, label: 'Cover Photo', input_html: { class: "form-control input-sm"} %>
+  </div>
+
+  <div class="form-group">
+    <%= f.input :name, required: true, label: 'Shop Name', input_html: { class: "form-control input-sm"} %>
+  </div>
+
+  <div class="form-group">
+    <%= f.input :title, required: true, label: 'Title or Tagline', input_html: { class: "form-control input-sm"} %>
+  </div>
+
+  <div class="form-group">
+    <%= f.input :announcement, required: true, label: 'Title or Tagline', input_html: { class: "form-control input-sm"} %>
+  </div>
+
+  <div class="form-group">
+    <%= f.input :welcome_message, required: true, label: 'Welcome Message', input_html: { class: "form-control input-sm"} %>
+  </div>
+
+  <div class="form-group">
+    <%= f.input :shipping_policy, required: true, label: 'Shipping Policy', input_html: { class: "form-control input-sm"} %>
+  </div>
+
+  <div class="form-group">
+    <%= f.input :refund_policy, required: true, label: 'Refund & Exchange Policy', input_html: { class: "form-control input-sm"} %>
+  </div>
+
+  <div class="form-group">
+    <%= f.button :submit, class: "btn btn-primary" %>
+  </div>
+<% end %>

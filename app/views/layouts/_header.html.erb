@@ -36,7 +36,11 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <% if user_signed_in? %>
-        <li><%= link_to "Your Shop", root_path %></li>
+          <% if current_user.shop.blank? %>
+            <li><%= link_to "Open Shop", new_shop_path %></li>
+          <% else %>
+            <li><%= link_to "Your Shop", store_path(current_user.shop) %></li>
+          <% end %>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><%= current_user.username %> <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">

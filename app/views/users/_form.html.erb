@@ -11,9 +11,25 @@
     </div>
   <% end %>
 
+  <div class="avatar-preview center">
+      <label for="avatar-input" class="cursor-on">
+          <%= image_tag @user.avatar.url(:thumb), class: "width-69 img-circle" %>
+      </label>
+    <%= f.input :avatar, label: false, input_html: {id: "avatar-input", class: "avatar-file"} %>
+  </div>
+
+  <p class="sub-head center"><%= current_user.username %></p>
+  <hr>
+  <% if current_user.role == 'Admin' %>
   <div class="form-group">
     <%= f.input :username, required: true, input_html: {class: "form-control input-sm"} %>
   </div>
+
+  <div class="form-group">
+    <%= f.input :role, required: true, collection: User::ROLE_SELECT, as: :radio_buttons, item_wrapper_class: "radio-inline" %>
+  </div>
+  <br>
+  <% end %>
   
   <div class="form-group">
     <%= f.input :first_name, required: true, input_html: {class: "form-control input-sm"} %>
@@ -24,11 +40,12 @@
   </div>
 
   <div class="form-group">
-    <%= f.input :gender, required: true, collection: User::GENDER_SELECT, include_blank: false, input_html: {class: "form-control input-sm"} %>
+    <%= f.input :gender, required: true, collection: User::GENDER_SELECT, as: :radio_buttons, item_wrapper_class: "radio-inline" %>
   </div>
 
   <div class="form-group">
-    <%= f.input :role, required: true, collection: User::ROLE_SELECT, include_blank: false, input_html: {class: "form-control input-sm"} %>
+    <label>About</label> <small>Tell people a little bit about you</small>
+    <%= f.input :about, label: false, input_html: {rows: 5, class: "form-control input-sm"} %>
   </div>
 
   <div class="form-group">
@@ -40,12 +57,6 @@
       <%= f.input :birthday, as: :date, start_year: Date.today.year - 18,
                                 end_year: Date.today.year - 80, 
                                 order: [:day, :month, :year], label: false, required: true, input_html: { :item_wrapper_class => 'inline', class: 'form-control input-sm' } %>
-    </div>
-
-
-  <div class="form-group">
-    <label>About</label> <small>Tell people a little bit about you</small>
-    <%= f.input :about, label: false, input_html: {rows: 5, class: "form-control input-sm"} %>
   </div>
 
   <div class="form-group">

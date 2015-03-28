@@ -8,7 +8,7 @@
       <div class="flexslider">
         <ul class="slides">
           <% @images.each do |image| %>
-            <li><%= image_tag image.photo.url(:medium) %></li>
+            <li data-thumb="<%= image.photo.url(:thumb) %>"><%= image_tag image.photo.url(:medium) %></li>
           <% end %>                 
         </ul>
       </div>
@@ -19,11 +19,11 @@
         
       </div>
       <div class="social-sharing">
-        <div class="social-box">
-
-           <center><h5><b><%= @listing.user.username %></b></h5>
-           <small><p><i>in Sabah, <%= @listing.user.country %></i></p></small></center>
-           <p><%= @listing.user.about %></p>
+        <div class="social-box center">
+           <p><%= image_tag @listing.user.avatar.url(:profile), class: "img-circle" %></p>
+           <h5><b><%= @listing.user.username %></b></h5>
+           <small><p><i>Currently in <%= @listing.user.country %></i></p></small>
+           <p class="text-area"><%= @listing.user.about %></p>
         </div>
       </div>
     </div>
@@ -59,6 +59,10 @@
     });
   });
   $(document).ready(function () {
-    $('.flexslider').flexslider();
+    $('.flexslider').flexslider({
+      slideshow: false,
+      touch: true,
+      controlNav: "thumbnails"
+    });
   });
 </script>

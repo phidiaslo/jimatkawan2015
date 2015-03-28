@@ -12,8 +12,8 @@
     </div>
     <div role="tabpanel" class="tab-pane" id="shippingpolicy">
       <div class="description-box">
-        
-        <table class="table table-bordered table-hover">
+        <h5>Ready to ship in <%= @listing.processing_time %></h5>
+        <table class="table table-bordered">
           <thead>
             <tr>
               <th>Ships To</th>
@@ -22,10 +22,40 @@
           </thead>
 
           <tbody>
-
-
+            <% @shiplocations.each do |shiplocation| %>
+              <tr>
+                <td><%= shiplocation.country %></td>
+                <td><%= number_with_precision(shiplocation.cost, precision: 2) %></td>
+              </tr>
+            <% end %>
           </tbody>
         </table>
+        <br>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Policies</th>
+                <th></th>
+              </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                  <td>Payment</td>
+                  <td>Paypal is the easiest. If you would like to pay a different way, please contact us first to work it out.</td>
+                </tr>
+                <tr>
+                  <td>Shipping</td>
+                  <td class="text-area"><%= @listing.user.shop.shipping_policy %></td>
+                </tr>
+                <tr>
+                  <td>Refunds & Exchanges</td>
+                  <td>We do not accept returns at this time. We are a tiny studio run by two people, and cannot offer the same return policies as large companies. We inspect every item before it is sent out and will not ship anything defective.
+We do honour exchanges for a different size, and will consider exchanges for a different colour depending on our fabric availability.</td>
+                </tr>
+            </tbody>
+          </table>
+
       </div>
     </div>
   </div>

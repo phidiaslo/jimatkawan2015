@@ -1,9 +1,16 @@
 Rails.application.routes.draw do
+
+  resources :shiplocations
+
   resources :images
 
   get 'listings/update_subcategories', :as => 'update_subcategories'
 
-  resources :listings
+  resources :listings do
+    collection do
+      match 'search' => 'listings#search', via: [:get, :post], as: :search
+    end
+  end
 
   resources :locations
 
@@ -16,6 +23,14 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
   resources :users, only: [:index, :show, :edit, :update]
   # You can have the root of your site routed with "root"
+
+  resources :shops, except: [:show] #Remove Controller Name in Show action
+  get '/:id' => 'shops#show', as: :store #Remove Controller Name in Show action
+  get '/:id/about' => 'shops#about', as: :shop_about
+  get '/:id/policies' => 'shops#policy', as: :shop_policy
+  get '/:id/reviews' => 'shops#reviews', as: :shop_reviews
+
+  
   root 'welcome#index'
 
   # Example of regular route:

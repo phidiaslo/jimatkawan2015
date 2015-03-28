@@ -10,6 +10,9 @@ class CategoriesController < ApplicationController
   # GET /categories/1
   # GET /categories/1.json
   def show
+    @subcategories = Subcategory.where(category_id: @category).order(:name)
+    @listings = Listing.all.order('created_at DESC')
+    @images = Image.all.order('created_at DESC')
   end
 
   # GET /categories/new

@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Country:</strong>
+  <%= @shiplocation.country %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @shiplocation.price %>
+</p>
+
+<p>
+  <strong>Cost:</strong>
+  <%= @shiplocation.cost %>
+</p>
+
+<p>
+  <strong>Listing:</strong>
+  <%= @shiplocation.listing %>
+</p>
+
+<%= link_to 'Edit', edit_shiplocation_path(@shiplocation) %> |
+<%= link_to 'Back', shiplocations_path %>

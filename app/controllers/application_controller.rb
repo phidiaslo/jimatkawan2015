@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
 
 
   def set_header_variable
+    @search = Listing.includes(:user).search(params[:q])
     @categories = Category.all.order(:name)
     @locations = Location.all.order(:name)
   end

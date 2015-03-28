@@ -14,9 +14,12 @@ class Listing < ActiveRecord::Base
   belongs_to :subcategory
   belongs_to :location
 
+  has_many :shiplocations, dependent: :destroy
+  accepts_nested_attributes_for :shiplocations, :reject_if => :all_blank, :allow_destroy => true
+
   has_many :images, dependent: :destroy
   accepts_nested_attributes_for :images, :reject_if => lambda { |t| t['photo'].nil? }, :allow_destroy => true
 
-  SHIPPING_SELECT = ['1 Business Day', '1-2 Business Days', '1-3 Business Days', '3-5 Business Days', '1-2 Weeks', '2-3 Weeks', '3-4 Weeks', '4-6 Weeks', '6-8 Weeks', 'More than 8 Weeks']
+  SHIPPING_SELECT = ['1 Business Day', '1-2 Business Days', '1-3 Business Days', '3-5 Business Days', '1-2 Weeks', '2-3 Weeks', '3-4 Weeks', '4-6 Weeks', '6-8 Weeks']
 
 end

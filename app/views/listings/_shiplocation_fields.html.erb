@@ -1,0 +1,11 @@
+  <div class="nested-fields row margin-bottom-10">
+    <div class="col-md-5">
+      <%= f.input :country, label: false, priority: [ "Malaysia" ], input_html: {class: "form-control input-sm"} %>
+    </div>
+    <div class="col-md-5">
+      <%= f.input :cost, label: false, input_html: {class: "form-control input-sm"} %>
+    </div>
+    <div class="col-md-2 padding-3">
+      <%= link_to_remove_association "Remove", f, class: "btn-link" %>
+    </div>
+  </div>

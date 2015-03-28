@@ -20,26 +20,25 @@
   </div>
 
   <div class="form-group">
-    <%= f.input :gender, required: true, input_html: {class: "form-control input-sm"} %>
+    <%= f.input :gender, required: true, collection: User::GENDER_SELECT, as: :radio_buttons, item_wrapper_class: "radio-inline" %>
   </div>
-  <br>
+  <hr>
+  <div class="form-group">
+    <%= f.input :username, required: true, input_html: {class: "form-control input-sm"} %>
+  </div>
+
   <div class="form-group">
     <%= f.input :email, required: true, input_html: {class: "form-control input-sm"} %>
   </div>
 
   <div class="form-group">
     <%= f.input :password, required: true, input_html: {class: "form-control input-sm"} %>
-    <small><%= @minimum_password_length %> characters minimum</small>
+    <p><small><%= @minimum_password_length %> characters minimum</small></p>
   </div>
 
-  <div class="form-group">
-    <%= f.input :password_confirmation, required: true, input_html: {class: "form-control input-sm"} %>
-  </div>
-
-  <div class="form-group">
-    <%= f.input :username, required: true, input_html: {class: "form-control input-sm"} %>
-  </div>
-
+  
+  <p><small>By Signing Up, you confirm that you accept our Terms of Use and Privacy Policy.</small></p>
+  <br>
   <div class="form-group">
     <%= f.button :submit, "Sign up", class: "btn btn-primary" %>
   </div>

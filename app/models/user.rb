@@ -4,9 +4,15 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "100x100>", :profile => "69x69>" }, :default_url => "default_avatar.png"
+  validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
+
+  validates :username, presence: true, format: { with: /\A[a-zA-Z0-9]+\Z/ }
+
   GENDER_SELECT = ['Male', 'Female', 'Rather not say']
   ROLE_SELECT = ['Member', 'Admin']
 
+  has_one :shop
   has_many :listings, dependent: :destroy
 
   def age(birthday)

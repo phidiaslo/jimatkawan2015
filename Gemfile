@@ -21,6 +21,7 @@ gem 'tinymce-rails'
 gem "paperclip", "~> 4.2"
 gem "cocoon"
 gem 'flexslider'
+gem 'kaminari'
 
 gem 'coffee-script-source', '1.8.0'
 
