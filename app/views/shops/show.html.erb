@@ -21,7 +21,7 @@
         <p><%= link_to "Reviews", shop_reviews_path(@shop) %></p>
         <hr class="small-hr">
         <p class="margin-bottom-5"><%= link_to 'Edit Shop Info', edit_shop_path(@shop), class: "btn btn-xs btn-success full-width" %></p>
-        <p><%= link_to 'Add New Item', new_listing_path, class: "btn btn-xs btn-success full-width" %></p>
+        <p><%= link_to 'View Orders', edit_shop_path(@shop), class: "btn btn-xs btn-success full-width" %></p>
       </div>
     </div>
     <div class="col-md-10">
@@ -34,19 +34,20 @@
       <table class="table table-striped shop-top-section">
         <tbody>
           <tr>
-            <td><b><%= @shop.name %></b><p><small>Happy New Year 2015</small></p></td>
+            <td><b><%= @shop.name %></b><p><small><%= @shop.title %></small></p></td>
             <td></td>
             <td></td>
           </tr> 
           <tr>
-            <td colspan="3"><p><small>Etiam ut purus mattis mauris sodales aliquam. Praesent egestas tristique nibh. Phasellus dolor. In ac felis quis tortor malesuada pretium. Ut tincidunt tincidunt erat.</small></p></td>
+            <td colspan="3"><p><small><%= @shop.announcement %></small></p></td>
           </tr>
           <tr>
             <td colspan="2">
               <%= search_form_for @shopsearch, url: store_path(@shop) do |f| %>
-                <div class="form-inline width-60">
+                <div class="form-inline">
                    <%= f.text_field :name_cont, placeholder: 'Search in this shop', class: "form-control input-sm" %>
                    <%= f.submit "Search", class: "btn btn-sm btn-primary green-border" %>
+                   <%= link_to 'Add New Item', new_listing_path, class: "btn btn-sm btn-success" %>
                 </div>
               <% end %>
             </td>

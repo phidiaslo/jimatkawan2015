@@ -287,7 +287,6 @@ p {
 }
 
 .btn-success {
-  width: 100%;
   color: white !important;
   font-weight: bold;
   border-color: #7ab008 #76a80d #779539;
@@ -585,8 +584,8 @@ hr {
   text-align: right;
 }
 
-.form-inline .form-control {
-  width: 60%;
+.form-inline-alt .form-control {
+  width: 73%;
 }
 
 .full-width {
